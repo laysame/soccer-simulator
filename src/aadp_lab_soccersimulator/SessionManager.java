@@ -53,11 +53,19 @@ public class SessionManager {
         return number;
     }
 
+    String getPlayerName() {
+        return scanner.nextLine();
+    }
+
     String getPlayerBirth() {
         return scanner.nextLine();
     }
 
     String getPlayerPosition() {
+        return scanner.nextLine();
+    }
+
+    String getPlayerBackground() {
         return scanner.nextLine();
     }
 

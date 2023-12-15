@@ -4,10 +4,6 @@
  */
 package aadp_lab_soccersimulator;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 
 /**
@@ -59,31 +55,25 @@ public class AADP_Lab_SoccerSimulator {
                     String position;
                     int goalsScored = 0;
                     String background;
-                    boolean validPlayer = false;
+
                     System.out.println("Please enter the player's name: ");
-                    name = sc.nextLine();
+                    name = sessionManager.getPlayerName();
+
                     System.out.println("Please enter the player's number: ");
-                    do {
-                        try {
-                            number = Integer.parseInt(sc.nextLine());
-                            if (number < 1) {
-                                System.out.println("Please enter a positive integer");
-                            } else validPlayer = true;
+                    number = sessionManager.getPositiveNumber();
 
-                        } catch (Exception e) {
-                            System.out.println("That is not a number. please try again!");
-                        }
-
-                    } while (!validPlayer);
                     System.out.println("Please enter the player's date of birth: ");
                     birth = sessionManager.getPlayerBirth();
+
                     System.out.println("Please enter the player's position: ");
                     position = sessionManager.getPlayerPosition();
+
                     System.out.println("Please enter the number of goals the player has scored: ");
                     goalsScored = sessionManager.getPositiveNumber();
 
                     System.out.println("Please enter the player's background: ");
-                    background = sc.nextLine();
+                    background = sessionManager.getPlayerBackground();
+
                     System.out.println("Thank you for entering a player");
                     databaseManager.addPlayer(teamName, name, number, birth, position, goalsScored, background);
 
