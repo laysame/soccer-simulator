@@ -44,6 +44,7 @@ public class DatabaseManager {
             throw new RuntimeException(e);
         }
     }
+
     void addPlayer(String teamName, String name, int number, String birth, String position, int goalsScored, String background) {
     Connection conn = getConnection();
 

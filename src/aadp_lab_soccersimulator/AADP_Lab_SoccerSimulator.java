@@ -109,16 +109,8 @@ public class AADP_Lab_SoccerSimulator {
                     System.out.println("Please enter the player's background: ");
                     background = sc.nextLine();
                     System.out.println("Thank you for entering a player");
-                    try {
-                        Statement stmt = conn.createStatement();
-                        stmt.execute(
-                                String.format("INSERT INTO %s (name, number, birth, position, goalsScored, background) "
-                                                + "VALUES (\"%s\", %d, \"%s\", \"%s\", %d,  \"%s\") ;",
-                                        teamName, name, number, birth, position, goalsScored, background)
-                        );
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    databaseManager.addPlayer(teamName, name, number, birth, position, goalsScored, background);
+
                 } else if (option == 2) {
                     boolean validTeam = false;
                     String teamName;
