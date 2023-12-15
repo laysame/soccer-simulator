@@ -14,7 +14,7 @@ public class DatabaseManager {
     Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            return DriverManager.getConnection("jdbc:mysql://localhost/", USER, PASS);
+            return DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
