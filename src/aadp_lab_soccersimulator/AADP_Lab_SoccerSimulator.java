@@ -41,6 +41,8 @@ public class AADP_Lab_SoccerSimulator {
 
         Connection conn = databaseManager.getConnection();
 
+        SessionManager sessionManager = new SessionManager();
+
         int option;
         boolean exit = false;
         Scanner sc = new Scanner(System.in);
@@ -53,21 +55,8 @@ public class AADP_Lab_SoccerSimulator {
             try {
                 option = Integer.parseInt(sc.nextLine());
                 if (option == 1) {
-                    boolean validTeam = false;
-                    String teamName;
                     System.out.println("Please follow the instructions to enter player data.");
-                    do {
-                        System.out.println("For which team would you like to enter data?");
-                        teamName = sc.nextLine();
-                        for (String team : teams) {
-                            if (teamName.toLowerCase().equals(team.toLowerCase())) {
-                                validTeam = true;
-                                break;
-                            }
-                        }
-                        if (teamName.toLowerCase().equals("exit")) break;
-                        if (!validTeam) System.out.println("That is not one of the teams. Please try again!");
-                    } while (!validTeam);
+                    String teamName = sessionManager.getTeamName(teams);
                     String name;
                     int number = 0;
                     String birth;
