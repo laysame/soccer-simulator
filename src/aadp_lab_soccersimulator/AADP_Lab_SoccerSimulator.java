@@ -16,17 +16,17 @@ import java.util.Scanner;
  * @author Sam
  * Please put the names and student numbers of the team here:
  * 
- * Name 1:
- * Number 1:
+ * Name 1: Laysa Dias
+ * Number 1: 2021295
  * 
- * Name 2:
- * Number 2:
+ * Name 2: Leonardo Oliveira
+ * Number 2: 2021361
  * 
- * Name 3:
- * Number 3:
+ * Name 3: Gabriel Eugenio
+ * Number 3: 2021240
  * 
- * Name 4:
- * Number 4
+ * Name 4: Guilherme Felix
+ * Number 4 2021309
  * 
  */
 
