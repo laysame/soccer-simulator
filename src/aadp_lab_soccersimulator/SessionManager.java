@@ -1,11 +1,15 @@
 package aadp_lab_soccersimulator;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class SessionManager {
+    private DatabaseManager databaseManager;
     private Scanner scanner;
 
-    public SessionManager() {
+    public SessionManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
         scanner = new Scanner(System.in);
     }
 
@@ -14,7 +18,7 @@ public class SessionManager {
         boolean validTeam = false;
 
         do {
-            System.out.println("For which team would you like to enter data?");
+            System.out.println("Which team you are interested in?");
             teamName = scanner.nextLine();
 
             for (String team : teams) {
@@ -29,7 +33,8 @@ public class SessionManager {
 
         return teamName;
     }
-    int getPlayerNumber() {
+
+    int getPositiveNumber() {
         int number = 0;
         boolean validPlayer = false;
 
@@ -44,17 +49,41 @@ public class SessionManager {
                 System.out.println("That is not a number. please try again!");
             }
         } while (!validPlayer);
-        
+
         return number;
     }
-    
+
     String getPlayerBirth() {
-    return scanner.nextLine();
-        }
+        return scanner.nextLine();
+    }
 
     String getPlayerPosition() {
-    return scanner.nextLine();
+        return scanner.nextLine();
+    }
+
+    void printPlayerData(String teamName) {
+        ResultSet rs = databaseManager.getTeamPlayers(teamName);
+        try {
+            String name;
+            int number;
+            String birth;
+            String position;
+            int goalsScored;
+            String background;
+            while (rs.next()) {
+                name = rs.getString("name");
+                number = rs.getInt("number");
+                birth = rs.getString("birth");
+                position = rs.getString("position");
+                goalsScored = rs.getInt("goalsScored");
+                background = rs.getString("background");
+                System.out.println(String.format("Name: %s -- Number: %d -- DoB: %s -- Position: %s -- Number of goals scored: %d", name, number, birth, position, goalsScored));
+                System.out.println("Background:");
+                System.out.println(background);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    
+    }
 }
 

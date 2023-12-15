@@ -34,12 +34,12 @@ public class DatabaseManager {
             for (String team : teams) {
                 stmt.execute(
                         "CREATE TABLE IF NOT EXISTS " + team + " ("
-                        + "name VARCHAR(30) NOT NULL,"
-                        + "number INT NOT NULL PRIMARY KEY,"
-                        + "birth VARCHAR(30),"
-                        + "position VARCHAR(30),"
-                        + "goalsScored INT,"
-                        + "background TEXT(1000));"
+                                + "name VARCHAR(30) NOT NULL,"
+                                + "number INT NOT NULL PRIMARY KEY,"
+                                + "birth VARCHAR(30),"
+                                + "position VARCHAR(30),"
+                                + "goalsScored INT,"
+                                + "background TEXT(1000));"
                 );
             }
         } catch (SQLException e) {
@@ -54,7 +54,7 @@ public class DatabaseManager {
             Statement stmt = conn.createStatement();
             stmt.execute(
                     String.format("INSERT INTO %s (name, number, birth, position, goalsScored, background) "
-                            + "VALUES (\"%s\", %d, \"%s\", \"%s\", %d,  \"%s\") ;",
+                                    + "VALUES (\"%s\", %d, \"%s\", \"%s\", %d,  \"%s\") ;",
                             teamName, name, number, birth, position, goalsScored, background)
             );
         } catch (SQLException e) {
@@ -62,7 +62,6 @@ public class DatabaseManager {
             throw new RuntimeException(e);
 
         }
-
     }
 
     ResultSet getTeamPlayers(String teamName) {

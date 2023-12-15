@@ -5,7 +5,6 @@
 package aadp_lab_soccersimulator;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,19 +13,18 @@ import java.util.Scanner;
 /**
  * @author Sam
  * Please put the names and student numbers of the team here:
- *
+ * <p>
  * Name 1: Laysa Dias
  * Number 1: 2021295
- * 
+ * <p>
  * Name 2: Leonardo Oliveira
  * Number 2: 2021361
- * 
+ * <p>
  * Name 3: Gabriel Eugenio
  * Number 3: 2021240
- * 
+ * <p>
  * Name 4: Guilherme Felix
  * Number 4 2021309
- * 
  */
 
 public class AADP_Lab_SoccerSimulator {
@@ -39,9 +37,7 @@ public class AADP_Lab_SoccerSimulator {
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.createTeams(teams);
 
-        Connection conn = databaseManager.getConnection();
-
-        SessionManager sessionManager = new SessionManager();
+        SessionManager sessionManager = new SessionManager(databaseManager);
 
         int option;
         boolean exit = false;
@@ -77,83 +73,28 @@ public class AADP_Lab_SoccerSimulator {
                         } catch (Exception e) {
                             System.out.println("That is not a number. please try again!");
                         }
+
                     } while (!validPlayer);
                     System.out.println("Please enter the player's date of birth: ");
-                    birth = sc.nextLine();
+                    birth = sessionManager.getPlayerBirth();
                     System.out.println("Please enter the player's position: ");
-                    position = sc.nextLine();
+                    position = sessionManager.getPlayerPosition();
                     System.out.println("Please enter the number of goals the player has scored: ");
-                    validPlayer = false;
-                    do {
-                        try {
-                            goalsScored = Integer.parseInt(sc.nextLine());
-                            if (goalsScored < 1) {
-                                System.out.println("Please enter a positive integer");
-                            } else validPlayer = true;
+                    goalsScored = sessionManager.getPositiveNumber();
 
-                        } catch (Exception e) {
-                            System.out.println("That is not a number. please try again!");
-                        }
-                    } while (!validPlayer);
                     System.out.println("Please enter the player's background: ");
                     background = sc.nextLine();
                     System.out.println("Thank you for entering a player");
                     databaseManager.addPlayer(teamName, name, number, birth, position, goalsScored, background);
 
                 } else if (option == 2) {
-                    boolean validTeam = false;
-                    String teamName;
-                    System.out.println("Please follow the instructions to get player data.");
-                    do {
-                        System.out.println("For which team would you like to get player data?");
-                        teamName = sc.nextLine();
-                        for (String team : teams) {
-                            if (teamName.toLowerCase().equals(team.toLowerCase())) {
-                                validTeam = true;
-                                break;
-                            }
-                        }
-                        if (teamName.toLowerCase().equals("exit")) break;
-                        if (!validTeam) System.out.println("That is not one of the teams. Please try again!");
-                    } while (!validTeam);
-                    try {
-                        Statement stmt = conn.createStatement();
-                        ResultSet rs = stmt.executeQuery("SELECT * from " + teamName + ";");
-                        String name;
-                        int number;
-                        String birth;
-                        String position;
-                        int goalsScored;
-                        String background;
-                        while (rs.next()) {
-                            name = rs.getString("name");
-                            number = rs.getInt("number");
-                            birth = rs.getString("birth");
-                            position = rs.getString("position");
-                            goalsScored = rs.getInt("goalsScored");
-                            background = rs.getString("background");
-                            System.out.println(String.format("Name: %s -- Number: %d -- DoB: %s -- Position: %s -- Number of goals scored: %d", name, number, birth, position, goalsScored));
-                            System.out.println("Background:");
-                            System.out.println(background);
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    String teamName = sessionManager.getTeamName(teams);
+                    sessionManager.printPlayerData(teamName);
+
                 } else if (option == 3) {
                     System.out.println("How many matches would you like to simulate?");
-                    Boolean validNum = false;
-                    int numMatches = 0;
-                    do {
-                        try {
-                            numMatches = Integer.parseInt(sc.nextLine());
-                            if (numMatches < 1) {
-                                System.out.println("Please enter a positive integer");
-                            } else validNum = true;
+                    int numMatches = sessionManager.getPositiveNumber();
 
-                        } catch (Exception e) {
-                            System.out.println("That is not a number. please try again!");
-                        }
-                    } while (!validNum);
                     for (int matchNum = 1; matchNum <= numMatches; matchNum++) {
                         int team1Num = (int) (Math.floor(Math.random() * teams.length));
                         String team1 = teams[team1Num];
