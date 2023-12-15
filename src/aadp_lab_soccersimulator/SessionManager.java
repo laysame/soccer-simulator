@@ -29,4 +29,24 @@ public class SessionManager {
 
         return teamName;
     }
+    int getPlayerNumber() {
+        int number = 0;
+        boolean validPlayer = false;
+
+        do {
+            try {
+                number = Integer.parseInt(scanner.nextLine());
+                if (number < 1) {
+                    System.out.println("Please enter a positive integer");
+                } else validPlayer = true;
+
+            } catch (Exception e) {
+                System.out.println("That is not a number. please try again!");
+            }
+        } while (!validPlayer);
+        
+        return number;
+    }
+    
 }
+
