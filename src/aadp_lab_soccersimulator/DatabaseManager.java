@@ -44,4 +44,21 @@ public class DatabaseManager {
             throw new RuntimeException(e);
         }
     }
+    void addPlayer(String teamName, String name, int number, String birth, String position, int goalsScored, String background) {
+    Connection conn = getConnection();
+
+    try {
+        Statement stmt = conn.createStatement();
+        stmt.execute(
+                String.format("INSERT INTO %s (name, number, birth, position, goalsScored, background) "
+                                + "VALUES (\"%s\", %d, \"%s\", \"%s\", %d,  \"%s\") ;",
+                        teamName, name, number, birth, position, goalsScored, background)
+        );
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new RuntimeException(e);
+    
+        }
+    
+    }
 }
