@@ -48,5 +48,13 @@ public class SessionManager {
         return number;
     }
     
+    String getPlayerBirth() {
+    return scanner.nextLine();
+}
+
+String getPlayerPosition() {
+    return scanner.nextLine();
+}
+    
 }
 
