@@ -50,11 +50,11 @@ public class SessionManager {
     
     String getPlayerBirth() {
     return scanner.nextLine();
-}
+        }
 
-String getPlayerPosition() {
+    String getPlayerPosition() {
     return scanner.nextLine();
-}
+        }
     
 }
 
