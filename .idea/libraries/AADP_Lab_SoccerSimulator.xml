@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="AADP_Lab_SoccerSimulator">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/AADP_Lab_SoccerSimulator.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
